@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Madhu Rangesa</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+
+    /* ── HERO ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 5rem;
+      align-items: start;
+      padding: 6rem 0 5rem;
+    }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1.4rem;
+      font-weight: 400;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(3rem, 5.5vw, 5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 2rem;
+    }
+
+    .bio {
+      font-size: 1.02rem;
+      color: var(--ink-mid);
+      max-width: 560px;
+      line-height: 1.85;
+    }
+    .bio p + p { margin-top: 1em; }
+    .bio a {
+      color: var(--teal);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(61,110,110,0.3);
+      transition: border-color 0.2s;
+    }
+    .bio a:hover { border-bottom-color: var(--teal); }
+
+    .hero-links {
+      display: flex;
+      gap: 0.9rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.4rem;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--teal); color: #fff; }
+    .btn-primary:hover { background: var(--teal-light); }
+    .btn-outline { border: 1px solid var(--border); color: var(--ink-mid); }
+    .btn-outline:hover { border-color: var(--teal); color: var(--teal); }
+
+    /* photo */
+    .hero-photo { position: relative; margin-top: 1rem; }
+    .hero-photo img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 3px;
+      display: block;
+      filter: sepia(6%) contrast(1.02);
+    }
+    /* shown when image is missing */
+    .photo-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--paper);
+      border: 1px dashed var(--border);
+      border-radius: 3px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: var(--ink-light);
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+    }
+    .photo-placeholder .icon { font-size: 2rem; }
+    .hero-photo::before {
+      content: '';
+      position: absolute;
+      inset: -8px -8px 8px 8px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      z-index: -1;
+    }
+
+    /* ── SECTION DIVIDER ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin: 0 0 3rem;
+      color: var(--ink-light);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── CARDS ── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      padding-bottom: 6rem;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.45);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 2rem 1.8rem;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.25s;
+      display: block;
+    }
+    .card:hover {
+      background: rgba(255,255,255,0.75);
+      border-color: var(--teal-light);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(61,110,110,0.1);
+    }
+    .card-tag {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.7rem;
+    }
+    .card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+    .card p {
+      font-size: 0.88rem;
+      color: var(--ink-light);
+      line-height: 1.6;
+    }
+    .card-arrow {
+      display: inline-block;
+      margin-top: 1.2rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--teal);
+    }
+
+    /* quote */
+    blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--ink-mid);
+      border-left: 2px solid var(--gold);
+      padding: 0.4rem 0 0.4rem 1.5rem;
+      margin: 2.5rem 0;
+      max-width: 560px;
+    }
+    blockquote cite {
+      display: block;
+      font-size: 0.76rem;
+      font-style: normal;
+      letter-spacing: 0.1em;
+      color: var(--ink-light);
+      margin-top: 0.4rem;
+    }
+
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-photo { max-width: 260px; }
+      .cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">Madhu Rangesa</a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="interests.html">Interests</a></li>
+      <li><a href="bookshelf.html">Bookshelf</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-wrap">
+    <section class="hero">
+
+      <div class="hero-text fade-in">
+        <!-- ✏️ EDIT: Change the subtitle line below -->
+        <p class="eyebrow">Researcher · Writer · Collector</p>
+
+        <h1>Madhu<br>Rangesa</h1>
+
+        <!-- ✏️ EDIT: Replace these paragraphs with your own bio -->
+        <div class="bio">
+          <p>
+            Write a short intro about yourself here. What do you work on?
+            What are you interested in? Keep it to 2–3 short paragraphs.
+          </p>
+          <p>
+            This is a good place for a second paragraph — perhaps about your
+            background, where you've worked, or what brought you here.
+          </p>
+          <p>
+            And a third paragraph if you'd like — your writing, your collecting,
+            or whatever else you want the world to know.
+          </p>
+        </div>
+
+        <!-- ✏️ EDIT: Change the quote and attribution if you like -->
+        <blockquote>
+          Life science is an investment for the future.
+          <cite>— Tasuku Honjo</cite>
+        </blockquote>
+
+        <div class="hero-links">
+          <!-- CV button — links to assets/cv.pdf -->
+          <a class="btn btn-primary" href="assets/cv.pdf" target="_blank">
+            ↓ Curriculum Vitae
+          </a>
+          <!-- ✏️ EDIT: Replace with your LinkedIn URL -->
+          <a class="btn btn-outline" href="https://www.linkedin.com/in/YOUR-LINKEDIN" target="_blank">
+            LinkedIn
+          </a>
+          <!-- ✏️ EDIT: Replace with your email -->
+          <a class="btn btn-outline" href="mailto:YOUR@EMAIL.COM">
+            Email
+          </a>
+        </div>
+      </div>
+
+      <!-- PHOTO — replace assets/photo.jpg with your own image -->
+      <div class="hero-photo fade-in" style="animation-delay:0.15s">
+        <img
+          src="assets/photo.jpg"
+          alt="Madhu Rangesa"
+          onerror="this.style.display='none'; document.getElementById('photo-placeholder').style.display='flex';"
+        />
+        <div class="photo-placeholder" id="photo-placeholder" style="display:none;">
+          <span class="icon">🖼</span>
+          <span>Add assets/photo.jpg</span>
+        </div>
+      </div>
+
+    </section>
+
+    <div class="divider">Explore</div>
+
+    <div class="cards">
+      <a class="card fade-in" href="interests.html" style="animation-delay:0.1s">
+        <div class="card-tag">Writing &amp; Beyond</div>
+        <h3>Other Interests</h3>
+        <p>Science communication, creative writing, and the Substack where I put it all together.</p>
+        <span class="card-arrow">Visit →</span>
+      </a>
+
+      <a class="card fade-in" href="bookshelf.html" style="animation-delay:0.2s">
+        <div class="card-tag">My Collection</div>
+        <h3>Pride &amp; Prejudice Bookshelf</h3>
+        <p>Every edition of Austen's masterpiece I've collected — a library within a library.</p>
+        <span class="card-arrow">Browse →</span>
+      </a>
+
+      <!-- ✏️ EDIT: Change this card to link to your research / current role -->
+      <div class="card fade-in" style="animation-delay:0.3s; cursor:default;">
+        <div class="card-tag">Research</div>
+        <h3>Current Work</h3>
+        <!-- ✏️ EDIT: Describe your current research or role here -->
+        <p>Add a short description of what you're currently working on here.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>© 2025 Madhu Rangesa</span>
+    <span>
+      <!-- ✏️ EDIT: Update LinkedIn + email -->
+      <a href="https://www.linkedin.com/in/YOUR-LINKEDIN" target="_blank">LinkedIn</a>
+      &nbsp;·&nbsp;
+      <a href="mailto:YOUR@EMAIL.COM">YOUR@EMAIL.COM</a>
+    </span>
+  </footer>
+
+</body>
+</html>

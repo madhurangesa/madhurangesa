@@ -1,0 +1,1 @@
+Put your book cover photos here. Name each file to match bookshelf.html
