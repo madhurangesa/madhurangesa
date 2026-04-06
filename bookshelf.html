@@ -32,7 +32,6 @@
       border-bottom: 1px solid var(--border);
       margin-bottom: 3.5rem;
     }
-
     .tab-btn {
       font-family: 'Jost', sans-serif;
       font-size: 0.78rem;
@@ -97,8 +96,6 @@
     .book:nth-child(8)  { animation-delay: 0.40s }
     .book:nth-child(9)  { animation-delay: 0.45s }
     .book:nth-child(10) { animation-delay: 0.50s }
-    .book:nth-child(11) { animation-delay: 0.55s }
-    .book:nth-child(12) { animation-delay: 0.60s }
 
     @keyframes fadeUp { to { opacity: 1; transform: none; } }
 
@@ -177,7 +174,6 @@
       gap: 2rem;
       padding-bottom: 6rem;
     }
-
     .fave-item {
       display: grid;
       grid-template-columns: 110px 1fr;
@@ -193,13 +189,11 @@
     .fave-item:nth-child(1) { animation-delay: 0.05s }
     .fave-item:nth-child(2) { animation-delay: 0.12s }
     .fave-item:nth-child(3) { animation-delay: 0.19s }
-    .fave-item:nth-child(4) { animation-delay: 0.26s }
-    .fave-item:nth-child(5) { animation-delay: 0.33s }
 
     .fave-cover {
       position: relative;
       width: 110px;
-      padding-bottom: 162px;
+      height: 162px;
       background: var(--paper);
       border-radius: 2px 3px 3px 2px;
       box-shadow:
@@ -235,7 +229,6 @@
       text-align: center;
       background: linear-gradient(150deg, var(--paper) 0%, #e4dccc 100%);
     }
-
     .fave-info { padding-top: 0.25rem; }
     .fave-number {
       font-size: 0.68rem;
@@ -267,7 +260,7 @@
     @media (max-width: 600px) {
       .books-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 2rem 1rem; }
       .fave-item { grid-template-columns: 90px 1fr; gap: 1.2rem; }
-      .fave-cover { width: 90px; padding-bottom: 133px; }
+      .fave-cover { width: 90px; height: 133px; }
       .tab-btn { padding: 0.9rem 1rem; font-size: 0.7rem; }
     }
   </style>
@@ -290,13 +283,15 @@
       <h1>Bookshelf</h1>
     </header>
 
-    <!-- TABS -->
     <div class="tabs">
-      <button class="tab-btn active" onclick="showTab('pp')">Pride &amp; Prejudice Editions</button>
-      <button class="tab-btn" onclick="showTab('faves')">2026 Favourites</button>
+      <button class="tab-btn active" onclick="showTab('pp', this)">Pride &amp; Prejudice Editions</button>
+      <button class="tab-btn" onclick="showTab('faves', this)">2026 Favourites</button>
     </div>
 
-    <!-- ══ TAB 1: P&P ══ -->
+
+    <!-- ══════════════════════════════
+         TAB 1 — P&P EDITIONS
+    ══════════════════════════════ -->
     <div id="tab-pp" class="tab-content active">
 
       <div class="collection-story fade-in">
@@ -307,7 +302,27 @@
 
       <div class="books-grid">
 
-        <!-- ── BOOK 1 ── -->
+        <!--
+        ════════════════════════════════════════════════════
+        HOW TO ADD A BOOK
+        ════════════════════════════════════════════════════
+        1. Photograph your edition
+        2. Process in Squoosh: width 400, height 600,
+           MozJPEG quality 80, lock icon OFF
+        3. Name the file e.g. signet-classics.jpg
+        4. Upload to the covers/ folder on GitHub
+        5. In the block below, replace:
+             FILENAME     → your file name (e.g. signet-classics.jpg)
+             SHORT NAME   → short label for placeholder card
+             FULL EDITION NAME → title shown below the cover
+             PUBLISHER    → publisher name
+             YEAR         → year of this edition
+             OPTIONAL NOTE → illustrator/editor — delete whole
+                             <div class="note"> line if not needed
+        ════════════════════════════════════════════════════
+        -->
+
+        <!-- ── BOOK 1: Signet Classics ── -->
         <div class="book">
           <div class="cover-wrap">
             <img src="covers/signet-classics.jpg" alt="Signet Classics"
@@ -323,299 +338,142 @@
             <div class="publisher">Signet Classics</div>
             <div class="year">2011</div>
           </div>
+        </div>
 
         <!-- ── BOOK 2 ── -->
         <div class="book">
           <div class="cover-wrap">
-            <img src="covers/folio-society.jpg" alt="Folio Society"
+            <img src="covers/FILENAME.jpg" alt="EDITION NAME"
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
             <div class="cover-ph">
               <div class="ph-title">Pride &amp; Prejudice</div>
               <div class="ph-rule"></div>
-              <div class="ph-pub">Folio Society</div>
+              <div class="ph-pub">SHORT NAME</div>
             </div>
           </div>
           <div class="book-meta">
-            <h2>Folio Society Edition</h2>
-            <div class="publisher">The Folio Society</div>
-            <div class="year">1957</div>
-            <div class="note">Illus. Joan Hassall</div>
+            <h2>FULL EDITION NAME</h2>
+            <div class="publisher">PUBLISHER</div>
+            <div class="year">YEAR</div>
+            <div class="note">OPTIONAL NOTE</div>
           </div>
         </div>
 
         <!-- ── BOOK 3 ── -->
         <div class="book">
           <div class="cover-wrap">
-            <img src="covers/everymans-library.jpg" alt="Everyman's Library"
+            <img src="covers/FILENAME.jpg" alt="EDITION NAME"
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
             <div class="cover-ph">
               <div class="ph-title">Pride &amp; Prejudice</div>
               <div class="ph-rule"></div>
-              <div class="ph-pub">Everyman's Library</div>
+              <div class="ph-pub">SHORT NAME</div>
             </div>
           </div>
           <div class="book-meta">
-            <h2>Everyman's Library</h2>
-            <div class="publisher">Alfred A. Knopf</div>
-            <div class="year">1991</div>
+            <h2>FULL EDITION NAME</h2>
+            <div class="publisher">PUBLISHER</div>
+            <div class="year">YEAR</div>
+            <div class="note">OPTIONAL NOTE</div>
           </div>
         </div>
 
         <!-- ── BOOK 4 ── -->
         <div class="book">
           <div class="cover-wrap">
-            <img src="covers/oxford-worlds.jpg" alt="Oxford World's Classics"
+            <img src="covers/FILENAME.jpg" alt="EDITION NAME"
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
             <div class="cover-ph">
               <div class="ph-title">Pride &amp; Prejudice</div>
               <div class="ph-rule"></div>
-              <div class="ph-pub">Oxford World's Classics</div>
+              <div class="ph-pub">SHORT NAME</div>
             </div>
           </div>
           <div class="book-meta">
-            <h2>Oxford World's Classics</h2>
-            <div class="publisher">Oxford University Press</div>
-            <div class="year">2004</div>
-            <div class="note">Ed. James Kinsley</div>
+            <h2>FULL EDITION NAME</h2>
+            <div class="publisher">PUBLISHER</div>
+            <div class="year">YEAR</div>
+            <div class="note">OPTIONAL NOTE</div>
           </div>
         </div>
 
         <!-- ── BOOK 5 ── -->
         <div class="book">
           <div class="cover-wrap">
-            <img src="covers/norton-critical.jpg" alt="Norton Critical Edition"
+            <img src="covers/FILENAME.jpg" alt="EDITION NAME"
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
             <div class="cover-ph">
               <div class="ph-title">Pride &amp; Prejudice</div>
               <div class="ph-rule"></div>
-              <div class="ph-pub">Norton Critical</div>
+              <div class="ph-pub">SHORT NAME</div>
             </div>
           </div>
           <div class="book-meta">
-            <h2>Norton Critical Edition</h2>
-            <div class="publisher">W. W. Norton &amp; Co.</div>
-            <div class="year">2016</div>
-            <div class="note">3rd ed., ed. Gray &amp; Favret</div>
+            <h2>FULL EDITION NAME</h2>
+            <div class="publisher">PUBLISHER</div>
+            <div class="year">YEAR</div>
+            <div class="note">OPTIONAL NOTE</div>
           </div>
         </div>
 
-        <!-- ── BOOK 6 ── -->
-        <div class="book">
-          <div class="cover-wrap">
-            <img src="covers/cambridge.jpg" alt="Cambridge Edition"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-            <div class="cover-ph">
-              <div class="ph-title">Pride &amp; Prejudice</div>
-              <div class="ph-rule"></div>
-              <div class="ph-pub">Cambridge</div>
-            </div>
-          </div>
-          <div class="book-meta">
-            <h2>Cambridge Edition</h2>
-            <div class="publisher">Cambridge University Press</div>
-            <div class="year">2006</div>
-            <div class="note">Ed. Pat Rogers</div>
-          </div>
-        </div>
-
-        <!-- ── BOOK 7 ── -->
-        <div class="book">
-          <div class="cover-wrap">
-            <img src="covers/heritage-press.jpg" alt="Heritage Press"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-            <div class="cover-ph">
-              <div class="ph-title">Pride &amp; Prejudice</div>
-              <div class="ph-rule"></div>
-              <div class="ph-pub">Heritage Press</div>
-            </div>
-          </div>
-          <div class="book-meta">
-            <h2>Heritage Press</h2>
-            <div class="publisher">The Heritage Press</div>
-            <div class="year">1940</div>
-            <div class="note">Illus. Helen Sewell</div>
-          </div>
-        </div>
-
-        <!-- ── BOOK 8 ── -->
-        <div class="book">
-          <div class="cover-wrap">
-            <img src="covers/macmillan-collector.jpg" alt="Macmillan Collector's Library"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-            <div class="cover-ph">
-              <div class="ph-title">Pride &amp; Prejudice</div>
-              <div class="ph-rule"></div>
-              <div class="ph-pub">Macmillan Collector's</div>
-            </div>
-          </div>
-          <div class="book-meta">
-            <h2>Macmillan Collector's Library</h2>
-            <div class="publisher">Macmillan</div>
-            <div class="year">2016</div>
-          </div>
-        </div>
-
-        <!-- ── BOOK 9 ── -->
-        <div class="book">
-          <div class="cover-wrap">
-            <img src="covers/first-edition.jpg" alt="First Edition Facsimile"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-            <div class="cover-ph">
-              <div class="ph-title">Pride &amp; Prejudice</div>
-              <div class="ph-rule"></div>
-              <div class="ph-pub">First Edition Facsimile</div>
-            </div>
-          </div>
-          <div class="book-meta">
-            <h2>First Edition Facsimile</h2>
-            <div class="publisher">Routledge / Thoemmes</div>
-            <div class="year">1989</div>
-            <div class="note">Facsimile of the 1813 first ed.</div>
-          </div>
-        </div>
-
-        <!-- ── BOOK 10 ── -->
-        <div class="book">
-          <div class="cover-wrap">
-            <img src="covers/annotated.jpg" alt="The Annotated Edition"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-            <div class="cover-ph">
-              <div class="ph-title">Pride &amp; Prejudice</div>
-              <div class="ph-rule"></div>
-              <div class="ph-pub">Annotated Edition</div>
-            </div>
-          </div>
-          <div class="book-meta">
-            <h2>The Annotated Edition</h2>
-            <div class="publisher">Clarkson Potter</div>
-            <div class="year">2007</div>
-            <div class="note">Ed. Patricia Meyer Spacks</div>
-          </div>
-        </div>
-
-        <!-- ── BOOK 11 ── -->
-        <div class="book">
-          <div class="cover-wrap">
-            <img src="covers/illustrated-brock.jpg" alt="Illustrated by C.E. Brock"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-            <div class="cover-ph">
-              <div class="ph-title">Pride &amp; Prejudice</div>
-              <div class="ph-rule"></div>
-              <div class="ph-pub">C.E. Brock Illus.</div>
-            </div>
-          </div>
-          <div class="book-meta">
-            <h2>Illustrated by C.E. Brock</h2>
-            <div class="publisher">George Allen</div>
-            <div class="year">1895</div>
-            <div class="note">The Victorian illustrated classic</div>
-          </div>
-        </div>
-
-        <!-- ── BOOK 12 ── -->
-        <div class="book">
-          <div class="cover-wrap">
-            <img src="covers/penguin-popular.jpg" alt="Penguin Popular Classics"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-            <div class="cover-ph">
-              <div class="ph-title">Pride &amp; Prejudice</div>
-              <div class="ph-rule"></div>
-              <div class="ph-pub">Penguin Popular</div>
-            </div>
-          </div>
-          <div class="book-meta">
-            <h2>Penguin Popular Classics</h2>
-            <div class="publisher">Penguin Books</div>
-            <div class="year">1994</div>
-          </div>
-        </div>
-
-        <!--
-        ── ADD MORE P&P EDITIONS HERE ──
-        Copy this block and fill in your details:
-
-        <div class="book">
-          <div class="cover-wrap">
-            <img src="covers/FILENAME.jpg" alt="Edition Name"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-            <div class="cover-ph">
-              <div class="ph-title">Pride &amp; Prejudice</div>
-              <div class="ph-rule"></div>
-              <div class="ph-pub">Short Name</div>
-            </div>
-          </div>
-          <div class="book-meta">
-            <h2>Full Edition Name</h2>
-            <div class="publisher">Publisher</div>
-            <div class="year">Year</div>
-            <div class="note">Optional note</div>
-          </div>
-        </div>
-        -->
+        <!-- ── TO ADD MORE: copy any block above and paste it here ── -->
 
       </div>
     </div>
 
-    <!-- ══ TAB 2: 2026 FAVOURITES ══ -->
+
+    <!-- ══════════════════════════════
+         TAB 2 — 2026 FAVOURITES
+    ══════════════════════════════ -->
     <div id="tab-faves" class="tab-content">
       <div class="faves-list">
 
+        <!--
+        ════════════════════════════════════════════════════
+        HOW TO ADD A FAVOURITE
+        ════════════════════════════════════════════════════
+        1. Process cover photo in Squoosh: 400x600, MozJPEG 80
+        2. Name it fave-2026-1.jpg, fave-2026-2.jpg etc.
+        3. Upload to covers/ folder on GitHub
+        4. Fill in BOOK TITLE, AUTHOR NAME, YOUR NOTE
+        ════════════════════════════════════════════════════
+        -->
+
         <!-- ── FAVOURITE 1 ── -->
-        <!-- ✏️ EDIT: Replace FILENAME, title, author and blurb -->
         <div class="fave-item">
           <div class="fave-cover">
-            <img src="covers/fave-2026-1.jpg" alt="Book 1"
+            <img src="covers/fave-2026-1.jpg" alt="BOOK TITLE"
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
             <div class="cover-ph">
-              <div class="ph-title">Book Title</div>
+              <div class="ph-title">BOOK TITLE</div>
             </div>
           </div>
           <div class="fave-info">
             <div class="fave-number">01</div>
-            <h2>Book Title Here</h2>
-            <div class="author">Author Name</div>
-            <p class="blurb">Write a sentence or two about why you loved this book. What stayed with you? What made it a favourite this year?</p>
+            <h2>BOOK TITLE</h2>
+            <div class="author">AUTHOR NAME</div>
+            <p class="blurb">YOUR NOTE ABOUT THE BOOK</p>
           </div>
         </div>
 
         <!-- ── FAVOURITE 2 ── -->
-        <!-- ✏️ EDIT: Replace FILENAME, title, author and blurb -->
         <div class="fave-item">
           <div class="fave-cover">
-            <img src="covers/fave-2026-2.jpg" alt="Book 2"
+            <img src="covers/fave-2026-2.jpg" alt="BOOK TITLE"
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
             <div class="cover-ph">
-              <div class="ph-title">Book Title</div>
+              <div class="ph-title">BOOK TITLE</div>
             </div>
           </div>
           <div class="fave-info">
             <div class="fave-number">02</div>
-            <h2>Book Title Here</h2>
-            <div class="author">Author Name</div>
-            <p class="blurb">Write a sentence or two about why you loved this book. What stayed with you? What made it a favourite this year?</p>
+            <h2>BOOK TITLE</h2>
+            <div class="author">AUTHOR NAME</div>
+            <p class="blurb">YOUR NOTE ABOUT THE BOOK</p>
           </div>
         </div>
 
-        <!--
-        ── ADD MORE FAVOURITES HERE ──
-        Copy this block and paste above this comment:
-
-        <div class="fave-item">
-          <div class="fave-cover">
-            <img src="covers/fave-2026-3.jpg" alt="Book 3"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-            <div class="cover-ph">
-              <div class="ph-title">Book Title</div>
-            </div>
-          </div>
-          <div class="fave-info">
-            <div class="fave-number">03</div>
-            <h2>Book Title Here</h2>
-            <div class="author">Author Name</div>
-            <p class="blurb">Your note about the book.</p>
-          </div>
-        </div>
-        -->
+        <!-- ── TO ADD MORE: copy any block above and paste it here ── -->
 
       </div>
     </div>
@@ -627,11 +485,11 @@
   </footer>
 
   <script>
-    function showTab(name) {
+    function showTab(name, btn) {
       document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       document.getElementById('tab-' + name).classList.add('active');
-      event.target.classList.add('active');
+      btn.classList.add('active');
     }
     function switchToFaves() {
       document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
