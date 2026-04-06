@@ -8,9 +8,7 @@
   <style>
 
     .page-header {
-      padding: 5rem 0 3.5rem;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 4rem;
+      padding: 5rem 0 3rem;
     }
     .page-header .eyebrow {
       font-size: 0.72rem;
@@ -25,17 +23,56 @@
       font-weight: 300;
       line-height: 1.1;
       color: var(--ink);
-      margin-bottom: 1rem;
-    }
-    .page-header .lead {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.08rem;
-      font-style: italic;
-      color: var(--ink-mid);
-      max-width: 560px;
     }
 
-    /* ── GRID ── */
+    /* ── TABS ── */
+    .tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 3.5rem;
+    }
+
+    .tab-btn {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 0.9rem 1.8rem;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      margin-bottom: -1px;
+    }
+    .tab-btn:hover { color: var(--teal); }
+    .tab-btn.active {
+      color: var(--teal);
+      border-bottom-color: var(--teal);
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* ── COLLECTION STORY ── */
+    .collection-story {
+      max-width: 640px;
+      margin-bottom: 3.5rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .collection-story p {
+      font-size: 1rem;
+      color: var(--ink-mid);
+      line-height: 1.85;
+      margin-bottom: 1em;
+    }
+    .collection-story p:last-child { margin-bottom: 0; }
+
+    /* ── P&P GRID ── */
     .books-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
@@ -43,7 +80,6 @@
       padding-bottom: 6rem;
     }
 
-    /* ── BOOK CARD ── */
     .book {
       display: flex;
       flex-direction: column;
@@ -51,7 +87,6 @@
       transform: translateY(16px);
       animation: fadeUp 0.5s ease forwards;
     }
-    /* stagger delay for each card — add more if you add more books */
     .book:nth-child(1)  { animation-delay: 0.05s }
     .book:nth-child(2)  { animation-delay: 0.10s }
     .book:nth-child(3)  { animation-delay: 0.15s }
@@ -67,7 +102,6 @@
 
     @keyframes fadeUp { to { opacity: 1; transform: none; } }
 
-    /* cover wrapper — book-depth illusion */
     .cover-wrap {
       position: relative;
       width: 100%;
@@ -88,7 +122,6 @@
         -7px 5px 14px rgba(28,25,23,0.2),
          4px 10px 20px rgba(28,25,23,0.14);
     }
-    /* spine shadow */
     .cover-wrap::before {
       content: '';
       position: absolute;
@@ -104,8 +137,6 @@
       height: 100%;
       object-fit: cover;
     }
-
-    /* shown when cover image is missing */
     .cover-ph {
       position: absolute;
       inset: 0;
@@ -127,7 +158,6 @@
     .cover-ph .ph-rule { width: 24px; height: 1px; background: var(--gold); margin: 0.45rem auto; opacity: 0.7; }
     .cover-ph .ph-pub  { font-size: 0.65rem; color: var(--ink-light); letter-spacing: 0.08em; }
 
-    /* metadata below the cover */
     .book-meta { margin-top: 0.85rem; }
     .book-meta h2 {
       font-family: 'Cormorant Garamond', serif;
@@ -140,8 +170,105 @@
     .book-meta .year      { font-size: 0.75rem; color: var(--ink-light); }
     .book-meta .note      { font-size: 0.75rem; color: var(--teal); font-style: italic; margin-top: 0.2rem; }
 
+    /* ── FAVOURITES ── */
+    .faves-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding-bottom: 6rem;
+    }
+
+    .fave-item {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 2rem;
+      align-items: start;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.5s ease forwards;
+    }
+    .fave-item:last-child { border-bottom: none; }
+    .fave-item:nth-child(1) { animation-delay: 0.05s }
+    .fave-item:nth-child(2) { animation-delay: 0.12s }
+    .fave-item:nth-child(3) { animation-delay: 0.19s }
+    .fave-item:nth-child(4) { animation-delay: 0.26s }
+    .fave-item:nth-child(5) { animation-delay: 0.33s }
+
+    .fave-cover {
+      position: relative;
+      width: 110px;
+      padding-bottom: 162px;
+      background: var(--paper);
+      border-radius: 2px 3px 3px 2px;
+      box-shadow:
+        -3px 0 0 0 rgba(0,0,0,0.12),
+        -4px 2px 8px rgba(28,25,23,0.12),
+         2px 4px 10px rgba(28,25,23,0.08);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .fave-cover::before {
+      content: '';
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      background: linear-gradient(180deg,rgba(0,0,0,0.12),rgba(0,0,0,0.04) 50%,rgba(0,0,0,0.12));
+      z-index: 2;
+    }
+    .fave-cover img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .fave-cover .cover-ph {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem;
+      text-align: center;
+      background: linear-gradient(150deg, var(--paper) 0%, #e4dccc 100%);
+    }
+
+    .fave-info { padding-top: 0.25rem; }
+    .fave-number {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.4rem;
+    }
+    .fave-info h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: 0.2rem;
+    }
+    .fave-info .author {
+      font-size: 0.85rem;
+      color: var(--ink-light);
+      font-style: italic;
+      margin-bottom: 0.9rem;
+    }
+    .fave-info .blurb {
+      font-size: 0.95rem;
+      color: var(--ink-mid);
+      line-height: 1.75;
+    }
+
     @media (max-width: 600px) {
       .books-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 2rem 1rem; }
+      .fave-item { grid-template-columns: 90px 1fr; gap: 1.2rem; }
+      .fave-cover { width: 90px; padding-bottom: 133px; }
+      .tab-btn { padding: 0.9rem 1rem; font-size: 0.7rem; }
     }
   </style>
 </head>
@@ -160,285 +287,355 @@
 
     <header class="page-header fade-in">
       <p class="eyebrow">My Collection</p>
-      <h1>Pride &amp; Prejudice<br>Editions</h1>
-      <!-- ✏️ EDIT: Change this subtitle if you like -->
-      <p class="lead">Every copy of the same perfect novel — each one a different conversation with Austen across time.</p>
+      <h1>Bookshelf</h1>
     </header>
 
-    <!--
-    ═══════════════════════════════════════════════════════
-    HOW TO ADD A BOOK
-    ═══════════════════════════════════════════════════════
-
-    1. Take a photo of your book cover (square or portrait is fine)
-    2. Name the file something simple, e.g. penguin-clothbound.jpg
-    3. Put it in the covers/ folder
-    4. Copy one of the <div class="book"> blocks below
-    5. Change the src="covers/FILENAME.jpg" to match your file
-    6. Fill in the title, publisher, year, and optional note
-
-    If you don't have a photo yet, just leave the src pointing to
-    a file that doesn't exist — a styled placeholder will show instead.
-    ═══════════════════════════════════════════════════════
-    -->
-
-    <div class="books-grid">
-
-      <!-- ── BOOK 1 ── -->
-      <div class="book">
-        <div class="cover-wrap">
-          <img src="covers/penguin-clothbound.jpg" alt="Penguin Clothbound Classics"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-          <div class="cover-ph">
-            <div class="ph-title">Pride &amp; Prejudice</div>
-            <div class="ph-rule"></div>
-            <div class="ph-pub">Penguin Clothbound</div>
-          </div>
-        </div>
-        <div class="book-meta">
-          <h2>Penguin Clothbound Classics</h2>
-          <div class="publisher">Penguin Books</div>
-          <div class="year">2009</div>
-          <div class="note">Illus. Coralie Bickford-Smith</div>
-        </div>
-      </div>
-
-      <!-- ── BOOK 2 ── -->
-      <div class="book">
-        <div class="cover-wrap">
-          <img src="covers/folio-society.jpg" alt="Folio Society"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-          <div class="cover-ph">
-            <div class="ph-title">Pride &amp; Prejudice</div>
-            <div class="ph-rule"></div>
-            <div class="ph-pub">Folio Society</div>
-          </div>
-        </div>
-        <div class="book-meta">
-          <h2>Folio Society Edition</h2>
-          <div class="publisher">The Folio Society</div>
-          <div class="year">1957</div>
-          <div class="note">Illus. Joan Hassall</div>
-        </div>
-      </div>
-
-      <!-- ── BOOK 3 ── -->
-      <div class="book">
-        <div class="cover-wrap">
-          <img src="covers/everymans-library.jpg" alt="Everyman's Library"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-          <div class="cover-ph">
-            <div class="ph-title">Pride &amp; Prejudice</div>
-            <div class="ph-rule"></div>
-            <div class="ph-pub">Everyman's Library</div>
-          </div>
-        </div>
-        <div class="book-meta">
-          <h2>Everyman's Library</h2>
-          <div class="publisher">Alfred A. Knopf</div>
-          <div class="year">1991</div>
-        </div>
-      </div>
-
-      <!-- ── BOOK 4 ── -->
-      <div class="book">
-        <div class="cover-wrap">
-          <img src="covers/oxford-worlds.jpg" alt="Oxford World's Classics"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-          <div class="cover-ph">
-            <div class="ph-title">Pride &amp; Prejudice</div>
-            <div class="ph-rule"></div>
-            <div class="ph-pub">Oxford World's Classics</div>
-          </div>
-        </div>
-        <div class="book-meta">
-          <h2>Oxford World's Classics</h2>
-          <div class="publisher">Oxford University Press</div>
-          <div class="year">2004</div>
-          <div class="note">Ed. James Kinsley</div>
-        </div>
-      </div>
-
-      <!-- ── BOOK 5 ── -->
-      <div class="book">
-        <div class="cover-wrap">
-          <img src="covers/norton-critical.jpg" alt="Norton Critical Edition"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-          <div class="cover-ph">
-            <div class="ph-title">Pride &amp; Prejudice</div>
-            <div class="ph-rule"></div>
-            <div class="ph-pub">Norton Critical</div>
-          </div>
-        </div>
-        <div class="book-meta">
-          <h2>Norton Critical Edition</h2>
-          <div class="publisher">W. W. Norton &amp; Co.</div>
-          <div class="year">2016</div>
-          <div class="note">3rd ed., ed. Gray &amp; Favret</div>
-        </div>
-      </div>
-
-      <!-- ── BOOK 6 ── -->
-      <div class="book">
-        <div class="cover-wrap">
-          <img src="covers/cambridge.jpg" alt="Cambridge Edition"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-          <div class="cover-ph">
-            <div class="ph-title">Pride &amp; Prejudice</div>
-            <div class="ph-rule"></div>
-            <div class="ph-pub">Cambridge</div>
-          </div>
-        </div>
-        <div class="book-meta">
-          <h2>Cambridge Edition</h2>
-          <div class="publisher">Cambridge University Press</div>
-          <div class="year">2006</div>
-          <div class="note">Ed. Pat Rogers</div>
-        </div>
-      </div>
-
-      <!-- ── BOOK 7 ── -->
-      <div class="book">
-        <div class="cover-wrap">
-          <img src="covers/heritage-press.jpg" alt="Heritage Press"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-          <div class="cover-ph">
-            <div class="ph-title">Pride &amp; Prejudice</div>
-            <div class="ph-rule"></div>
-            <div class="ph-pub">Heritage Press</div>
-          </div>
-        </div>
-        <div class="book-meta">
-          <h2>Heritage Press</h2>
-          <div class="publisher">The Heritage Press</div>
-          <div class="year">1940</div>
-          <div class="note">Illus. Helen Sewell</div>
-        </div>
-      </div>
-
-      <!-- ── BOOK 8 ── -->
-      <div class="book">
-        <div class="cover-wrap">
-          <img src="covers/macmillan-collector.jpg" alt="Macmillan Collector's Library"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-          <div class="cover-ph">
-            <div class="ph-title">Pride &amp; Prejudice</div>
-            <div class="ph-rule"></div>
-            <div class="ph-pub">Macmillan Collector's</div>
-          </div>
-        </div>
-        <div class="book-meta">
-          <h2>Macmillan Collector's Library</h2>
-          <div class="publisher">Macmillan</div>
-          <div class="year">2016</div>
-        </div>
-      </div>
-
-      <!-- ── BOOK 9 ── -->
-      <div class="book">
-        <div class="cover-wrap">
-          <img src="covers/first-edition.jpg" alt="First Edition Facsimile"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-          <div class="cover-ph">
-            <div class="ph-title">Pride &amp; Prejudice</div>
-            <div class="ph-rule"></div>
-            <div class="ph-pub">First Edition Facsimile</div>
-          </div>
-        </div>
-        <div class="book-meta">
-          <h2>First Edition Facsimile</h2>
-          <div class="publisher">Routledge / Thoemmes</div>
-          <div class="year">1989</div>
-          <div class="note">Facsimile of the 1813 first ed.</div>
-        </div>
-      </div>
-
-      <!-- ── BOOK 10 ── -->
-      <div class="book">
-        <div class="cover-wrap">
-          <img src="covers/annotated.jpg" alt="The Annotated Edition"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-          <div class="cover-ph">
-            <div class="ph-title">Pride &amp; Prejudice</div>
-            <div class="ph-rule"></div>
-            <div class="ph-pub">Annotated Edition</div>
-          </div>
-        </div>
-        <div class="book-meta">
-          <h2>The Annotated Edition</h2>
-          <div class="publisher">Clarkson Potter</div>
-          <div class="year">2007</div>
-          <div class="note">Ed. Patricia Meyer Spacks</div>
-        </div>
-      </div>
-
-      <!-- ── BOOK 11 ── -->
-      <div class="book">
-        <div class="cover-wrap">
-          <img src="covers/illustrated-brock.jpg" alt="Illustrated by C.E. Brock"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-          <div class="cover-ph">
-            <div class="ph-title">Pride &amp; Prejudice</div>
-            <div class="ph-rule"></div>
-            <div class="ph-pub">C.E. Brock Illus.</div>
-          </div>
-        </div>
-        <div class="book-meta">
-          <h2>Illustrated by C.E. Brock</h2>
-          <div class="publisher">George Allen</div>
-          <div class="year">1895</div>
-          <div class="note">The Victorian illustrated classic</div>
-        </div>
-      </div>
-
-      <!-- ── BOOK 12 ── -->
-      <div class="book">
-        <div class="cover-wrap">
-          <img src="covers/penguin-popular.jpg" alt="Penguin Popular Classics"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-          <div class="cover-ph">
-            <div class="ph-title">Pride &amp; Prejudice</div>
-            <div class="ph-rule"></div>
-            <div class="ph-pub">Penguin Popular</div>
-          </div>
-        </div>
-        <div class="book-meta">
-          <h2>Penguin Popular Classics</h2>
-          <div class="publisher">Penguin Books</div>
-          <div class="year">1994</div>
-        </div>
-      </div>
-
-      <!--
-      ── ADD MORE BOOKS HERE ──
-      Copy the block below and paste it above this comment.
-      Replace FILENAME, Title, Publisher, Year, and Note.
-
-      <div class="book">
-        <div class="cover-wrap">
-          <img src="covers/FILENAME.jpg" alt="Edition Name"
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-          <div class="cover-ph">
-            <div class="ph-title">Pride &amp; Prejudice</div>
-            <div class="ph-rule"></div>
-            <div class="ph-pub">Short Edition Name</div>
-          </div>
-        </div>
-        <div class="book-meta">
-          <h2>Full Edition Name</h2>
-          <div class="publisher">Publisher Name</div>
-          <div class="year">Year</div>
-          <div class="note">Optional note — illustrator, editor, etc.</div>
-        </div>
-      </div>
-      -->
-
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('pp')">Pride &amp; Prejudice Editions</button>
+      <button class="tab-btn" onclick="showTab('faves')">2026 Favourites</button>
     </div>
+
+    <!-- ══ TAB 1: P&P ══ -->
+    <div id="tab-pp" class="tab-content active">
+
+      <div class="collection-story fade-in">
+        <p>My mother introduced me to Jane Austen when I was young. It was a combination of Austen's classics that first led me through the doors of literature, a foundational love for reading I am still grateful for, one that has shaped the way I read and the way I write.</p>
+        <p>What began as a silly idea, what if I bought one edition at every bookstore I visited on my travels, turned into a collection. It has since acquired co-conspirators, people who find me a new edition on their own travels and bring it back. This little movement means I always chart a course for a bookstore in every new city or country, which has its own way of opening doors, to neighbourhoods, to conversations, to an ever-growing pile of books waiting to be read.</p>
+        <p>English lacks a word for this particular affliction. The Japanese call it <em>tsundoku</em> (積ん読), the gentle art of letting books pile up unread. The Greeks gave us <em>bibliomania</em>, an obsessive love of accumulating them. I contain multitudes of both.</p>
+      </div>
+
+      <div class="books-grid">
+
+        <!-- ── BOOK 1 ── -->
+        <div class="book">
+          <div class="cover-wrap">
+            <img src="covers/penguin-clothbound.jpg" alt="Penguin Clothbound Classics"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cover-ph">
+              <div class="ph-title">Pride &amp; Prejudice</div>
+              <div class="ph-rule"></div>
+              <div class="ph-pub">Penguin Clothbound</div>
+            </div>
+          </div>
+          <div class="book-meta">
+            <h2>Penguin Clothbound Classics</h2>
+            <div class="publisher">Penguin Books</div>
+            <div class="year">2009</div>
+            <div class="note">Illus. Coralie Bickford-Smith</div>
+          </div>
+        </div>
+
+        <!-- ── BOOK 2 ── -->
+        <div class="book">
+          <div class="cover-wrap">
+            <img src="covers/folio-society.jpg" alt="Folio Society"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cover-ph">
+              <div class="ph-title">Pride &amp; Prejudice</div>
+              <div class="ph-rule"></div>
+              <div class="ph-pub">Folio Society</div>
+            </div>
+          </div>
+          <div class="book-meta">
+            <h2>Folio Society Edition</h2>
+            <div class="publisher">The Folio Society</div>
+            <div class="year">1957</div>
+            <div class="note">Illus. Joan Hassall</div>
+          </div>
+        </div>
+
+        <!-- ── BOOK 3 ── -->
+        <div class="book">
+          <div class="cover-wrap">
+            <img src="covers/everymans-library.jpg" alt="Everyman's Library"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cover-ph">
+              <div class="ph-title">Pride &amp; Prejudice</div>
+              <div class="ph-rule"></div>
+              <div class="ph-pub">Everyman's Library</div>
+            </div>
+          </div>
+          <div class="book-meta">
+            <h2>Everyman's Library</h2>
+            <div class="publisher">Alfred A. Knopf</div>
+            <div class="year">1991</div>
+          </div>
+        </div>
+
+        <!-- ── BOOK 4 ── -->
+        <div class="book">
+          <div class="cover-wrap">
+            <img src="covers/oxford-worlds.jpg" alt="Oxford World's Classics"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cover-ph">
+              <div class="ph-title">Pride &amp; Prejudice</div>
+              <div class="ph-rule"></div>
+              <div class="ph-pub">Oxford World's Classics</div>
+            </div>
+          </div>
+          <div class="book-meta">
+            <h2>Oxford World's Classics</h2>
+            <div class="publisher">Oxford University Press</div>
+            <div class="year">2004</div>
+            <div class="note">Ed. James Kinsley</div>
+          </div>
+        </div>
+
+        <!-- ── BOOK 5 ── -->
+        <div class="book">
+          <div class="cover-wrap">
+            <img src="covers/norton-critical.jpg" alt="Norton Critical Edition"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cover-ph">
+              <div class="ph-title">Pride &amp; Prejudice</div>
+              <div class="ph-rule"></div>
+              <div class="ph-pub">Norton Critical</div>
+            </div>
+          </div>
+          <div class="book-meta">
+            <h2>Norton Critical Edition</h2>
+            <div class="publisher">W. W. Norton &amp; Co.</div>
+            <div class="year">2016</div>
+            <div class="note">3rd ed., ed. Gray &amp; Favret</div>
+          </div>
+        </div>
+
+        <!-- ── BOOK 6 ── -->
+        <div class="book">
+          <div class="cover-wrap">
+            <img src="covers/cambridge.jpg" alt="Cambridge Edition"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cover-ph">
+              <div class="ph-title">Pride &amp; Prejudice</div>
+              <div class="ph-rule"></div>
+              <div class="ph-pub">Cambridge</div>
+            </div>
+          </div>
+          <div class="book-meta">
+            <h2>Cambridge Edition</h2>
+            <div class="publisher">Cambridge University Press</div>
+            <div class="year">2006</div>
+            <div class="note">Ed. Pat Rogers</div>
+          </div>
+        </div>
+
+        <!-- ── BOOK 7 ── -->
+        <div class="book">
+          <div class="cover-wrap">
+            <img src="covers/heritage-press.jpg" alt="Heritage Press"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cover-ph">
+              <div class="ph-title">Pride &amp; Prejudice</div>
+              <div class="ph-rule"></div>
+              <div class="ph-pub">Heritage Press</div>
+            </div>
+          </div>
+          <div class="book-meta">
+            <h2>Heritage Press</h2>
+            <div class="publisher">The Heritage Press</div>
+            <div class="year">1940</div>
+            <div class="note">Illus. Helen Sewell</div>
+          </div>
+        </div>
+
+        <!-- ── BOOK 8 ── -->
+        <div class="book">
+          <div class="cover-wrap">
+            <img src="covers/macmillan-collector.jpg" alt="Macmillan Collector's Library"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cover-ph">
+              <div class="ph-title">Pride &amp; Prejudice</div>
+              <div class="ph-rule"></div>
+              <div class="ph-pub">Macmillan Collector's</div>
+            </div>
+          </div>
+          <div class="book-meta">
+            <h2>Macmillan Collector's Library</h2>
+            <div class="publisher">Macmillan</div>
+            <div class="year">2016</div>
+          </div>
+        </div>
+
+        <!-- ── BOOK 9 ── -->
+        <div class="book">
+          <div class="cover-wrap">
+            <img src="covers/first-edition.jpg" alt="First Edition Facsimile"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cover-ph">
+              <div class="ph-title">Pride &amp; Prejudice</div>
+              <div class="ph-rule"></div>
+              <div class="ph-pub">First Edition Facsimile</div>
+            </div>
+          </div>
+          <div class="book-meta">
+            <h2>First Edition Facsimile</h2>
+            <div class="publisher">Routledge / Thoemmes</div>
+            <div class="year">1989</div>
+            <div class="note">Facsimile of the 1813 first ed.</div>
+          </div>
+        </div>
+
+        <!-- ── BOOK 10 ── -->
+        <div class="book">
+          <div class="cover-wrap">
+            <img src="covers/annotated.jpg" alt="The Annotated Edition"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cover-ph">
+              <div class="ph-title">Pride &amp; Prejudice</div>
+              <div class="ph-rule"></div>
+              <div class="ph-pub">Annotated Edition</div>
+            </div>
+          </div>
+          <div class="book-meta">
+            <h2>The Annotated Edition</h2>
+            <div class="publisher">Clarkson Potter</div>
+            <div class="year">2007</div>
+            <div class="note">Ed. Patricia Meyer Spacks</div>
+          </div>
+        </div>
+
+        <!-- ── BOOK 11 ── -->
+        <div class="book">
+          <div class="cover-wrap">
+            <img src="covers/illustrated-brock.jpg" alt="Illustrated by C.E. Brock"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cover-ph">
+              <div class="ph-title">Pride &amp; Prejudice</div>
+              <div class="ph-rule"></div>
+              <div class="ph-pub">C.E. Brock Illus.</div>
+            </div>
+          </div>
+          <div class="book-meta">
+            <h2>Illustrated by C.E. Brock</h2>
+            <div class="publisher">George Allen</div>
+            <div class="year">1895</div>
+            <div class="note">The Victorian illustrated classic</div>
+          </div>
+        </div>
+
+        <!-- ── BOOK 12 ── -->
+        <div class="book">
+          <div class="cover-wrap">
+            <img src="covers/penguin-popular.jpg" alt="Penguin Popular Classics"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cover-ph">
+              <div class="ph-title">Pride &amp; Prejudice</div>
+              <div class="ph-rule"></div>
+              <div class="ph-pub">Penguin Popular</div>
+            </div>
+          </div>
+          <div class="book-meta">
+            <h2>Penguin Popular Classics</h2>
+            <div class="publisher">Penguin Books</div>
+            <div class="year">1994</div>
+          </div>
+        </div>
+
+        <!--
+        ── ADD MORE P&P EDITIONS HERE ──
+        Copy this block and fill in your details:
+
+        <div class="book">
+          <div class="cover-wrap">
+            <img src="covers/FILENAME.jpg" alt="Edition Name"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cover-ph">
+              <div class="ph-title">Pride &amp; Prejudice</div>
+              <div class="ph-rule"></div>
+              <div class="ph-pub">Short Name</div>
+            </div>
+          </div>
+          <div class="book-meta">
+            <h2>Full Edition Name</h2>
+            <div class="publisher">Publisher</div>
+            <div class="year">Year</div>
+            <div class="note">Optional note</div>
+          </div>
+        </div>
+        -->
+
+      </div>
+    </div>
+
+    <!-- ══ TAB 2: 2026 FAVOURITES ══ -->
+    <div id="tab-faves" class="tab-content">
+      <div class="faves-list">
+
+        <!-- ── FAVOURITE 1 ── -->
+        <!-- ✏️ EDIT: Replace FILENAME, title, author and blurb -->
+        <div class="fave-item">
+          <div class="fave-cover">
+            <img src="covers/fave-2026-1.jpg" alt="Book 1"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cover-ph">
+              <div class="ph-title">Book Title</div>
+            </div>
+          </div>
+          <div class="fave-info">
+            <div class="fave-number">01</div>
+            <h2>Book Title Here</h2>
+            <div class="author">Author Name</div>
+            <p class="blurb">Write a sentence or two about why you loved this book. What stayed with you? What made it a favourite this year?</p>
+          </div>
+        </div>
+
+        <!-- ── FAVOURITE 2 ── -->
+        <!-- ✏️ EDIT: Replace FILENAME, title, author and blurb -->
+        <div class="fave-item">
+          <div class="fave-cover">
+            <img src="covers/fave-2026-2.jpg" alt="Book 2"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cover-ph">
+              <div class="ph-title">Book Title</div>
+            </div>
+          </div>
+          <div class="fave-info">
+            <div class="fave-number">02</div>
+            <h2>Book Title Here</h2>
+            <div class="author">Author Name</div>
+            <p class="blurb">Write a sentence or two about why you loved this book. What stayed with you? What made it a favourite this year?</p>
+          </div>
+        </div>
+
+        <!--
+        ── ADD MORE FAVOURITES HERE ──
+        Copy this block and paste above this comment:
+
+        <div class="fave-item">
+          <div class="fave-cover">
+            <img src="covers/fave-2026-3.jpg" alt="Book 3"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cover-ph">
+              <div class="ph-title">Book Title</div>
+            </div>
+          </div>
+          <div class="fave-info">
+            <div class="fave-number">03</div>
+            <h2>Book Title Here</h2>
+            <div class="author">Author Name</div>
+            <p class="blurb">Your note about the book.</p>
+          </div>
+        </div>
+        -->
+
+      </div>
+    </div>
+
   </div>
 
   <footer>
     <span>© 2025 Madhu Rangesa</span>
   </footer>
+
+  <script>
+    function showTab(name) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
 
 </body>
 </html>
